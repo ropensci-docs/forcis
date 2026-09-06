@@ -1,0 +1,67 @@
+# Database versions
+
+The [FORCIS database](https://zenodo.org/doi/10.5281/zenodo.7390791) is
+regularly updated. The global structure of the `csv` files doesn’t
+change between versions but some bugs can be fixed and new records can
+also be added. This is why it is **recommended to use the latest
+version** of the database.
+
+## Using the latest version
+
+The package `forcis` is designed to handle the versioning of the
+database on Zenodo and will inform users if a new version is available
+each time they use one of the `read_*_data()` functions. The following
+message will be displayed:
+
+    A newer version of the FORCIS database is available. Use 'download_forcis_db(version = NULL)' to download it.
+
+As mentioned in this message, users can choose whether to download the
+latest version of the database.
+
+A **good practice** to ensure that the user works with the latest
+version of the database might be to add this line at the beginning of
+the script:
+
+``` r
+
+download_forcis_db(version = NULL, ...)
+```
+
+By setting `version = NULL`, the function
+[`download_forcis_db()`](https://docs.ropensci.org/forcis/reference/download_forcis_db.md)
+will download the latest version of the FORCIS database from Zenodo (if
+not already downloaded). If no newer version has been released on Zenodo
+and if the latest version of the database has already been downloaded,
+this step will be ignored.
+
+Note that the FORCIS database is saved in `forcis-db/version-99/`, where
+`99` is the label of the version. If you regularly download the new
+versions, the content of the folder `forcis-db/` may grow over time and
+it can be interesting to manually delete the folder of the previous
+versions.
+
+## Using a specific version
+
+If for some reason users want to freeze the version they use, it is
+possible to disable this message by setting the argument
+`forcis_check_for_update` to `FALSE` in the `read_*_data()` functions.
+
+It is also possible to disable this message globally for the current
+session:
+
+``` r
+
+options(forcis_check_for_update = FALSE)
+```
+
+If you want to be sure to use a specific version of the database, you
+can use the argument `version` of the `read_*_data()` functions, or use
+the following line:
+
+``` r
+
+options(forcis_version = "99")
+```
+
+> But again, it is **recommended to use the latest version** of the
+> database.
